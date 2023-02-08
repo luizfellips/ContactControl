@@ -1,4 +1,5 @@
-﻿using ContactControl.Models;
+﻿using ContactControl.Filters;
+using ContactControl.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,6 +7,7 @@ namespace ContactControl.Controllers
 {
     public class HomeController : Controller
     {
+        [PaginaParaUsuarioLogado]
         public IActionResult Index()
         {
             return View();

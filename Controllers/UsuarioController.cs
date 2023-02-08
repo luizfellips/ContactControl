@@ -1,11 +1,13 @@
-﻿using ContactControl.Models;
+﻿using ContactControl.Filters;
+using ContactControl.Models;
 using ContactControl.Repositorio;
 using ContactControl.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ContactControl.Controllers
 {
-    public class UsuarioController : Controller
+	[PaginaRestritaAdmin]
+	public class UsuarioController : Controller
     {
         private readonly IUsuarioRepositorio _usuarioRepositorio;
         public UsuarioController(IUsuarioRepositorio usuarioRepositorio)

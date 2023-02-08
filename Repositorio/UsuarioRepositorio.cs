@@ -1,4 +1,5 @@
 ﻿using ContactControl.Data;
+using ContactControl.Helper;
 using ContactControl.Models;
 
 namespace ContactControl.Repositorio
@@ -14,6 +15,7 @@ namespace ContactControl.Repositorio
         public UsuarioModel Adicionar(UsuarioModel usuario)
         {
             usuario.DataCadastro = DateTime.Now;
+            usuario.SetSenhaHash();
             _bancoContext.Usuarios.Add(usuario);
             _bancoContext.SaveChanges();
             return usuario;
@@ -44,9 +46,15 @@ namespace ContactControl.Repositorio
             usuarioDB.Perfil = usuario.Perfil;
 
             usuarioDB.DataAtualizacao = DateTime.Now;
+
             _bancoContext.Usuarios.Update(usuarioDB);
             _bancoContext.SaveChanges();
             return usuarioDB;
+        }
+       
+        public UsuarioModel BuscarPorEmailELogin(string email, string login)
+        {
+            return _bancoContext.Usuarios.FirstOrDefault(x => x.Email.ToUpper() == email.ToUpper() && x.Login.ToUpper() == login.ToUpper());
         }
 
         public UsuarioModel BuscarPorLogin(string login)

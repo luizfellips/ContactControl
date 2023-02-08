@@ -1,4 +1,5 @@
 using ContactControl.Data;
+using ContactControl.Helper;
 using ContactControl.Repositorio;
 using ContactControl.Repository;
 using Microsoft.EntityFrameworkCore;
@@ -11,9 +12,17 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 builder.Services.AddEntityFrameworkSqlServer().
     AddDbContext<BancoContext>(options => options.UseSqlServer(connectionString));
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+builder.Services.AddScoped<ISessao, Sessao>();
 builder.Services.AddScoped<IContatoRepositorio, ContatoRepositorio>();
 builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
-
+builder.Services.AddSession(options => 
+{
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
 
@@ -27,6 +36,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
