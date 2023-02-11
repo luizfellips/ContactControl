@@ -4,10 +4,11 @@
 
 ## Funcionalidades
 - Tela de login
-- cadastro e gerenciamento de usuários
-- cadastro e gerenciamento de contatos
-- redefinição de senha
-- criptografia de senha
-- sistema de sessão
-- filtrar páginas de acordo com níveis de permissões para usuário administrador/usuário padrão
-
+- Paginação e filtração de tabelas de usuários/contatos
+- Cadastro e gerenciamento de usuários
+- Cadastro e gerenciamento de contatos
+- Redefinição de senha por envio de e-mail SMTP
+- Criptografia de senha
+- Sistema de sessão
+- Filtrar páginas de acordo com níveis de permissões para usuário administrador/usuário padrão
+- Tela de alteração de senha
