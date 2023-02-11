@@ -36,5 +36,10 @@ namespace ContactControl.Models
 
         }
 
+        public void SetNovaSenha(string novaSenha)
+        {
+            Senha = novaSenha.GerarHash();
+        }
+
     }
 }

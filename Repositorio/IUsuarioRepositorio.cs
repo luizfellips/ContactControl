@@ -11,5 +11,6 @@ namespace ContactControl.Repositorio
         UsuarioModel Atualizar(UsuarioModel usuario);
         UsuarioModel ListarPorID(int id);
         UsuarioModel Adicionar(UsuarioModel usuario);
+        UsuarioModel AlterarSenha(AlterarSenhaModel alterarSenhaModel);
     }
 }

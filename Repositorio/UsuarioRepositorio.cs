@@ -21,6 +21,8 @@ namespace ContactControl.Repositorio
             return usuario;
         }
 
+        
+
         public bool Apagar(UsuarioModel usuario)
         {
             try
@@ -38,6 +40,7 @@ namespace ContactControl.Repositorio
 
         public UsuarioModel Atualizar(UsuarioModel usuario)
         {
+            //EFCore mapeia as propriedades existentes do banco de dados e preserva as alteradas do construtor(senha);
             UsuarioModel usuarioDB = ListarPorID(usuario.Id);
             if (usuarioDB == null) throw new Exception("Houve um erro na atualização do usuário");
             usuarioDB.Nome = usuario.Nome;
@@ -51,7 +54,20 @@ namespace ContactControl.Repositorio
             _bancoContext.SaveChanges();
             return usuarioDB;
         }
-       
+
+        public UsuarioModel AlterarSenha(AlterarSenhaModel alterarSenhaModel)
+        {
+            UsuarioModel usuarioDB = ListarPorID(alterarSenhaModel.Id);
+            if (usuarioDB == null) throw new Exception("Houve um erro na atualização da senha");
+            if (!usuarioDB.SenhaValida(alterarSenhaModel.SenhaAtual)) throw new Exception("Senha atual não confere");
+            if (usuarioDB.SenhaValida(alterarSenhaModel.NovaSenha)) throw new Exception("Nova senha deve ser diferente da senha atual");
+            usuarioDB.SetNovaSenha(alterarSenhaModel.NovaSenha);
+            usuarioDB.DataAtualizacao = DateTime.Now;
+            _bancoContext.Usuarios.Update(usuarioDB);
+            _bancoContext.SaveChanges();
+            return usuarioDB;
+        }
+
         public UsuarioModel BuscarPorEmailELogin(string email, string login)
         {
             return _bancoContext.Usuarios.FirstOrDefault(x => x.Email.ToUpper() == email.ToUpper() && x.Login.ToUpper() == login.ToUpper());
