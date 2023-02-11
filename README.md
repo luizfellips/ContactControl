@@ -4,6 +4,7 @@
 
 ## Funcionalidades
 - Tela de login
+- Paginação e filtração de tabelas de usuários/contatos
 - Cadastro e gerenciamento de usuários
 - Cadastro e gerenciamento de contatos
 - Redefinição de senha
