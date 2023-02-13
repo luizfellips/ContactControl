@@ -12,3 +12,4 @@
 - Sistema de sessão
 - Filtrar páginas de acordo com níveis de permissões para usuário administrador/usuário padrão
 - Tela de alteração de senha
+- Modal via ajax na tela de usuários
