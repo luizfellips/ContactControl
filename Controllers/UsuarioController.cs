@@ -9,12 +9,14 @@ namespace ContactControl.Controllers
 	[PaginaRestritaAdmin]
 	public class UsuarioController : Controller
     {
+        private readonly IContatoRepositorio _contatoRepositorio;
         private readonly IUsuarioRepositorio _usuarioRepositorio;
-        public UsuarioController(IUsuarioRepositorio usuarioRepositorio)
-        {
-            _usuarioRepositorio = usuarioRepositorio;
-        }
-        public IActionResult Index()
+		public UsuarioController(IUsuarioRepositorio usuarioRepositorio, IContatoRepositorio contatoRepositorio)
+		{
+			_usuarioRepositorio = usuarioRepositorio;
+			_contatoRepositorio = contatoRepositorio;
+		}
+		public IActionResult Index()
         {
             List<UsuarioModel> usuarios = _usuarioRepositorio.BuscarTodos();
             return View(usuarios);
@@ -23,7 +25,14 @@ namespace ContactControl.Controllers
         {
             return View();
         }
-        [HttpPost]
+
+        public IActionResult ListarContatosPorUsuarioId(int id)
+        {
+            List<ContatoModel> contatos = _contatoRepositorio.BuscarTodos(id);
+            return PartialView("_ContatosUsuario",contatos);
+        }
+
+		[HttpPost]
         public IActionResult Criar(UsuarioModel usuario)
         {
             try
@@ -48,6 +57,7 @@ namespace ContactControl.Controllers
             UsuarioModel model = _usuarioRepositorio.ListarPorID(id);
             return View(model);
         }
+
 
         public IActionResult Apagar(int id)
         {
